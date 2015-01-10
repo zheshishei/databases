@@ -11,7 +11,8 @@ CREATE TABLE IF NOT EXISTS messages (
   ID          INT(10),
   User_ID     INT(8),
   message     VARCHAR(140),
-  Room_ID     INT(8)
+  Room_ID     INT(8),
+  createdAt   TIMESTAMP
 );
 
 CREATE TABLE IF NOT EXISTS rooms (

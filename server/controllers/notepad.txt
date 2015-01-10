@@ -1,0 +1,8 @@
+var models = require('server/models'); models.messages.get({limit: 50, users: 'Alan', rooms: 'chatty', createdAt: '07-26-2007'})
+
+'SELECT Users.username, Messages.message, Rooms.name, Messages.createdAt FROM Messages, Users, Rooms WHERE Messages.Room_ID = Rooms.ID AND Messages.User_ID = Users.ID AND Users.username = "Alan" AND Rooms.name = "chatty" AND createdAt = "1970-01-01 00:00:01"  LIMIT 50;'
+
+'INSERT into messages
+ (ID, User_ID, Message, Room_ID, createdAt)
+ values (1, 2, 'hello world, how are you?', 1, '1970-01-01 00:00:01');
+'
