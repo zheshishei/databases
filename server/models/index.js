@@ -1,4 +1,5 @@
 //models
+var bluebird = require('bluebird');
 var db = require('../db');
 
 
@@ -7,7 +8,7 @@ var db = require('../db');
 module.exports = {
   messages: {
     get: function (params) {
-      var query = new db.Select(
+      var query = new db.Select('chatConnection',
         ['Users.username', 'Messages.message', 'Rooms.name', 'Messages.createdAt'],
         ['Messages', 'Users', 'Rooms']);
 
@@ -30,10 +31,18 @@ module.exports = {
       };
 
       for (var key in params){
-        actions[key](params[key]);
+        if(actions[key])
+          actions[key](params[key]);
       }
 
-      return query.send();
+      var promisedResult = new bluebird.Promise(function(resolve,reject) {
+        query.send().then(function(rows) {
+          resolve(rows);
+        }).catch(function(err) {
+          reject(err);
+        });
+      });
+      return promisedResult;
     }, // a function which produces all the messages
     post: function () {} // a function which can be used to insert a message into the database
   },

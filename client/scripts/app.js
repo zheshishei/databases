@@ -3,9 +3,9 @@
 var app = {};
 
 app.init = function(){
-  this.server = 'http://127.0.0.1:3000/classes/messages';
-  // this.fetch();
-  // setInterval(this.fetch, 500);
+  this.server = 'http://localhost:3000/classes/messages';
+  this.fetch();
+  // setInterval(this.fetch, 2000);
 };
 
 app.addMessage = function(message){
@@ -34,7 +34,7 @@ app.addMessage = function(message){
 app.send = function(message){
   $.ajax({
     // always use this url
-    url: 'http://127.0.0.1:3000/classes/messages',
+    url: 'http://localhost:3000/classes/messages',
     type: 'POST',
     data: JSON.stringify(message),
     contentType: 'application/json',
@@ -53,15 +53,15 @@ app.friends = {};
 app.fetch = function(){
   $.ajax({
     // always use this url
-    url: 'http://127.0.0.1:3000/classes/messages',
+    url: 'http://localhost:3000/classes/messages',
     type: 'GET',
     // data: 'createdAt'
     contentType: 'application/json',
     data: {
       order: '-createdAt',
-      limit: 1,
     },
     success: function (data) {
+      console.log('fetching');
       data = JSON.parse(data);
       var allMessages = data.results;
       var rooms = [];
@@ -175,7 +175,7 @@ var getMessages = function(){
 
   $.ajax({
     // always use this url
-    url: 'http://127.0.0.1:8080/classes/messages',
+    url: 'http://localhost:8080/classes/messages',
     type: 'GET',
     contentType: 'application/json',
     success: function (data) {
